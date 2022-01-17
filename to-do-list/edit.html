@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!-- <link rel="stylesheet" href="style.css"> -->
+<link rel="stylesheet" href="fonts/icomoon/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kumar+One+Outline&family=Quantico:ital,wght@1,700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    background: #f7f7ff;
+    margin-top:20px;
+}
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid transparent;
+    border-radius: .25rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 6px 0 rgb(218 218 253 / 65%), 0 2px 6px 0 rgb(206 206 238 / 54%);
+}
+.me-2 {
+    margin-right: .5rem!important;
+}
+
+.container {
+  display: inline-block;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0,1fr));
+  grid-gap: 20px;
+}
+
+
+aside {
+    border-right: 1px solid #999;
+}
+
+
+article {
+margin-left: 2%;
+grid-column: 4 / 13;
+grid-row: 2;
+}
+
+aside {
+grid-column: 1 / 4;
+grid-row: 2;
+}
+
+
+#cover {
+padding: 150px;
+background: url(https://i.pinimg.com/originals/49/55/44/49554431a0b3682344cc94ef1956198d.jpg);
+
+background-repeat: no-repeat;
+background-size:  100%;
+
+
+}
+
+.play{
+  font-family: 'Tourney';
+  font-size: 38px;
+}
+
+#img {
+  margin-right: 20px;
+  width: 100%;
+  max-width: 230px;
+}
+
+
+
+
+</style>
+<body onload="onLoadInit()">
+    <div class="container">
+        <!-- Side bar -->
+
+        <aside><h2>Other things</h2>
+            <!-- <a href="#homeSubmenu" >
+                <span class="material-icons">
+                    home
+                    </span>
+                Home
+                </a>
+            <a href="#">
+                <span class="material-icons">
+                    calendar_today
+                    </span>
+            FAQ
+            </a> -->
+            <div class="border-end bg-white" id="sidebar-wrapper">
+                <div class="list-group list-group-flush">
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="home.html">
+                         Home</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="nhap2.html"> To-do-list</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3 active" href="userprofile.html">My profile</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="login.html"><i class="fa fa-sign-out"></i>
+                        Log-out</a>
+                </div>
+            </div>
+            <br>
+         
+      
+
+            <img id="img" src="https://i.pinimg.com/564x/30/d0/4b/30d04b1515af2c23b10dbf61a7d78dde.jpg" width="fix">
+            <br><br>
+          </aside>
+        <!-- Main -->
+        <article>
+                <div class="main-body">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex flex-column align-items-center text-center">
+                                        <img src="https://i.pinimg.com/564x/f1/37/d4/f137d49c16f58655dcdef1026f2b4808.jpg" alt="Admin" class="rounded-circle" width="150">
+                                        <div class="mt-3">
+                                            <h4 id='admin-name'></h4>
+                                            <!-- <button class="btn btn-outline-primary">Message</button> -->
+                                        </div>
+                                    </div>
+                                    <hr class="my-4">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">User Name</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <input type="text" id="newName" class="form-control" value="User name">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Email</h6>
+                                        </div>
+                                        <b id='currentUser'> </b>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Phone</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <input type="text" class="form-control" value="(239) 816-9029">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">New Password</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <input type="Password" id="newPassword" value="password">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Address</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <input type="text" class="form-control" value="Bay Area, San Francisco, CA">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3"></div>
+                                        <div class="modal-footer">
+                                            
+                                            <button type="submit" class="btn btn-primary" onclick="updateUserPassword(), updateUserName()"
+                                                    data-dismiss="modal">Save change
+                                            </button>
+                                        </div>
+                                        <!-- <div class="col-sm-9 text-secondary">
+                                            Update User's password: <input type="text" id="newPassword" /><button onclick="updateUserPassword()">Update</button>
+                                            <a class="btn btn-info " href="userprofile.html">Save change</a>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        </div>
+</body>
+
+<script>
+    async function updateUserPassword() {
+                if (user != null) {
+                    let password = newPassword.value;
+                    const response = await fetch(`${serverUrl}/auth`,{
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            ...user
+                        },
+                        body: JSON.stringify({
+                            user: {
+                                password,
+                                password_confirmation: password
+                            }
+                        })
+                    });
+                    alert("Change password successfully ! You need to login again to continue. ");
+                    window.location.assign("login.html")
+
+                }
+            }
+            async function updateUserName() {
+                if (user != null) {
+                    let name = newName.value;
+                    const response = await fetch(`${serverUrl}/auth`,{
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            ...user
+                        },
+                        body: JSON.stringify({
+                            name
+                        })
+                    });
+                    user.name = name;
+                    document.getElementById('username').innerHTML = `${user.name ?? ''}`;
+                    document.getElementById('admin-name').innerHTML = name ;
+                }
+            }
+</script>
+<script src="js/index1.js"></script>

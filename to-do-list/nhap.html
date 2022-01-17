@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Bootstrap Table with Add and Delete Row Feature</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+<style>
+
+/* body {
+    color: #404E67;
+    background: #ffffff;
+    font-family: 'Open Sans', sans-serif;
+}
+.table-wrapper {
+    width: 700px;
+    margin: 30px auto;
+    background: #fff;
+    padding: 20px;	
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+.table-title {
+    padding-bottom: 10px;
+    margin: 0 0 10px;
+}
+.table-title h2 {
+    margin: 6px 0 0;
+    font-size: 22px;
+}
+.table-title .add-new {
+    float: right;
+    height: 30px;
+    font-weight: bold;
+    font-size: 12px;
+    text-shadow: none;
+    min-width: 100px;
+    border-radius: 50px;
+    line-height: 13px;
+}
+.table-title .add-new i {
+    margin-right: 4px;
+}
+table.table {
+    table-layout: fixed;
+}
+table.table tr th, table.table tr td {
+    border-color: #e9e9e9;
+}
+table.table th i {
+    font-size: 13px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+table.table th:last-child {
+    width: 100px;
+}
+table.table td a {
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 5px;
+    min-width: 24px;
+}    
+table.table td a.add {
+    color: #27C46B;
+}
+table.table td a.edit {
+    color: #FFC107;
+}
+table.table td a.delete {
+    color: #E34724;
+}
+table.table td i {
+    font-size: 19px;
+}
+table.table td a.add i {
+    font-size: 24px;
+    margin-right: -1px;
+    position: relative;
+    top: 3px;
+}    
+table.table .form-control {
+    height: 32px;
+    line-height: 32px;
+    box-shadow: none;
+    border-radius: 2px;
+}
+table.table .form-control.error {
+    border-color: #f50000;
+}
+table.table td .add {
+    display: none;
+} */
+</style>
+<!-- <script>
+$(document).ready(function(){
+	$('[data-toggle="tooltip"]').tooltip();
+	var actions = $("table td:last-child").html();
+	// Append table with add row form on add new button click
+    $(".add-new").click(function(){
+		$(this).attr("disabled", "disabled");
+		var index = $("table tbody tr:last-child").index();
+        // var row = '<tr>' +
+        //     '<td><input type="checkbok" class="form-control" name="done" id="done"></td>' +
+        //     '<td><input type="text" class="form-control" name="department" id="department"></td>' +
+        //     '<td><input type="date" class="form-control" name="date" id="date"></td>' +
+        //     '<td><select type="text" class="form-control" name="department" id="department"></td>' +
+        //     '<td><input type="text" class="form-control" name="phone" id="phone"></td>' +
+		// 	'<td>' + actions + '</td>' +
+        // '</tr>';
+        var row = '<tr>';
+        row += '<td><input <input type="checkbox"></td>';
+        row += '<td><input type="text" class="form-control" name="name" id="name">+task.name</td>';
+      
+     
+      
+        row += '<td>' + actions + '</td>';
+        row += '</tr>';
+    	$("table").append(row);		
+		$("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+	// Add row on add button click
+	$(document).on("click", ".add", function(){
+		var empty = false;
+		var input = $(this).parents("tr").find('input[type="text"]');
+        input.each(function(){
+			if(!$(this).val()){
+				$(this).addClass("error");
+				empty = true;
+			} else{
+                $(this).removeClass("error");
+            }
+		});
+		$(this).parents("tr").find(".error").first().focus();
+		if(!empty){
+			input.each(function(){
+				$(this).parent("td").html($(this).val());
+			});			
+			$(this).parents("tr").find(".add, .edit").toggle();
+			$(".add-new").removeAttr("disabled");
+		}		
+    });
+	// Edit row on edit button click
+	$(document).on("click", ".edit", function(){		
+        $(this).parents("tr").find("td:not(:last-child)").each(function(){
+			$(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
+		});		
+		$(this).parents("tr").find(".add, .edit").toggle();
+		$(".add-new").attr("disabled", "disabled");
+    });
+	// Delete row on delete button click
+	$(document).on("click", ".delete", function(){
+        $(this).parents("tr").remove();
+		$(".add-new").removeAttr("disabled");
+    });
+});
+</script> -->
+
+<script>
+    let serverUrl = 'http://herokutuan.herokuapp.com';
+    var user = null;
+    var selectedTasklist;
+    var selectedTask;
+
+    const register = async () => {
+        let email = document.getElementById('registerEmail').value;
+        let password = document.getElementById('registerPassword').value;
+        const response = await fetch(`${serverUrl}/auth`,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email,
+                password
+            })
+        });
+        if (response.ok)
+            alert("registered");                
+    }
+
+    const login = async () => {
+        let email = document.getElementById('email').value;
+        let password = document.getElementById('password').value;
+        const response = await fetch(`${serverUrl}/auth/sign_in`,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email,
+                password
+            })
+        });
+        user = {
+            'access-token': response.headers.get('access-token'),
+            uid: response.headers.get('uid'),
+            client: response.headers.get('client')
+        };
+        localStorage.setItem('user',JSON.stringify(user));
+        document.getElementById('currentUser').innerHTML = user.uid;
+    }
+
+    const fetchTasklist = async () => {
+		let taskform = document.getElementById('task');
+			const taskListRequest = await fetch(`${serverUrl}/task_lists`,{
+				headers: {
+					//'access-token':'HgvYj33lCyCoVL6qvc9XJw',
+					//uid: 'thanqminh+2@gmail.com',
+					//client: 'TXlAjMl6kFjVy8ULronJ0Q'
+					...user
+				}
+			}); 
+			const taskLists = await taskListRequest.json();
+			var task = '';
+			for (let list of taskLists) {
+			
+			
+				task+= '<h3 class="read">' + list.name +'</h3>';
+						
+				task+= `<div class="table100 ver1 m-b-110" id = "table-${list.id}"></div>`;
+				
+			}	 
+			
+			document.getElementById('task').innerHTML = task;
+			for (let list of taskLists) {
+				fetchTask(list.id); 
+			}
+			      
+	}
+	const fetchTask = async (selectedTasklist) => {
+		const taskRequest = await fetch(`${serverUrl}/task_lists/${selectedTasklist}/todos`,{
+			headers: {
+				...user
+			}
+		}); 
+		const tasks = await taskRequest.json();
+		var body = '<div class="table100-head"> <table id = "table-head"><thead><tr class="row100 head"><th class="cell100 column1">Name</th><th class="cell100 column3">Status</th></tr></thead></table></div>';
+		body += '<div class="table100-body js-pscroll" id="table-body"><table><tbody>';
+		
+		for (let task of tasks) {
+			
+			body+='<tr class="row100 body">';
+			body+='<td class="cell100 column1">'+task.name + '</td>';
+			
+			body+='<td class="cell100 column3">';
+			
+			// if(task.done){
+			// 	body+='<input type="checkbox" value="" id="flexCheck" checked></td>';
+			// }else{
+			// 	body+='<input type="checkbox" value="" id="flexCheck"></td>';
+			// }
+			// body+=`<td class="cell100 column4"><ul class="list-inline m-0"><li class="list-inline-item"><button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="modal" data-target="#ModalEditTask${task.id}" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button></li><li class="list-inline-item"><button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="modal" data-target="#ModalDeleteTask${task.id}" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>`;
+			
+			body+='</li></ul></td></tr>';
+			
+		}
+		body+='</tbody></table></div>';
+		document.getElementById(`table-${selectedTasklist}`).innerHTML = body;
+		// for(let task of tasks){
+		// 	if(task.done){
+		// 		document.getElementById(`updateTaskStatus${task.id}`).selectedIndex = "1";
+		// 	}else{
+		// 		document.getElementById(`updateTaskStatus${task.id}`).selectedIndex = "0";
+		// 	}
+		// }
+		}
+
+    const onSelectTaskList = async function(event) {
+        selectedTasklist = event.target.value;
+        refreshTasks();
+    }
+
+    const onSelectTask = async function(event) {
+        selectedTask = event.target.value;
+    }
+
+    const fetchTasklist = async () => {
+        let form = document.getElementById('tasklistForm');
+        form.innerHTML = '';
+        if (user) {
+            const taskListRequest = await fetch(`${serverUrl}/task_lists`,{
+                headers: {
+                    //'access-token':'HgvYj33lCyCoVL6qvc9XJw',
+                    //uid: 'thanqminh+2@gmail.com',
+                    //client: 'TXlAjMl6kFjVy8ULronJ0Q'
+                    ...user
+                }
+            }); 
+            const taskLists = await taskListRequest.json();
+        
+                                    
+            for (let list of taskLists) {
+
+                
+                let input = document.createElement("input");
+                input.name = 'selectedTasklist';
+                input.value = list.id;
+                input.id = `tasklist_${list.id}`;
+                input.type = 'radio';
+                input.oninput = onSelectTaskList;
+                form.appendChild(input);
+            
+                let span = document.createElement("span");
+                span.innerHTML = list.name;
+                form.appendChild(span);
+            }
+
+            body +='</tbody></tr>'
+            if (selectedTasklist) 
+                document.getElementById(`tasklist_${selectedTasklist}`).checked = true;
+        }
+        else {
+            ul.innerHTML = 'Need to login first';
+        }                
+    }
+
+    const createTaskList = async() => {
+        const name = document.getElementById('listname').value;
+        const createListRequest = await fetch('http://herokutuan.herokuapp.com/task_lists',{
+            method: 'POST',
+            headers: {
+                ...user,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name
+            })
+        });
+        fetchTasklist();
+    }
+
+    const updateTaskList = async() => {
+        if (selectedTasklist) {
+            const name = document.getElementById('updateListname').value;
+            const updateListRequest = await fetch(`http://herokutuan.herokuapp.com/task_lists/${selectedTasklist}`,{
+                method: 'PUT',
+                headers: {
+                    ...user,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: name
+                })
+            });
+            fetchTasklist();
+        }                
+    }
+
+    const deleteTaskList = async() => {
+        if (selectedTasklist) {
+            if (confirm('Are you sure you want to delete the selected task list')) {
+                const deleteListRequest = await fetch(`http://herokutuan.herokuapp.com/task_lists/${selectedTasklist}`,{
+                    method: 'DELETE',
+                    headers: {
+                        ...user
+                    }
+                    })
+                }
+                fetchTasklist();
+            }
+        }
+
+    const createTask = async() => {
+        const name = document.getElementById('taskname').value;
+        const createTaskRequest = await fetch(`http://herokutuan.herokuapp.com/task_lists/${selectedTasklist}/todos`,{
+            method: 'POST',
+            headers: {
+                ...user,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name
+            })
+        });
+        fetchTasklist();
+        refreshTasks();
+    }
+
+    const updateTask = async() => {
+        const name = document.getElementById('updateTaskname').value;
+        const createTaskRequest = await fetch(`http://herokutuan.herokuapp.com/task_lists/${selectedTasklist}/todos/${selectedTask}`,{
+            method: 'PUT',
+            headers: {
+                ...user,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name
+            })
+        });
+        refreshTasks();
+    }
+
+    const deleteTask = async() => {
+        if (selectedTask) {
+            if (confirm("Are you sure you want to delete the selected task?")) {
+                const deleteTaskRequest = await fetch(`http://herokutuan.herokuapp.com/task_lists/${selectedTasklist}/todos/${selectedTask}`,{
+                    method: 'DELETE',
+                    headers: {
+                        ...user
+                    }
+                });
+                refreshTasks();
+            }
+        }                
+    }
+
+    function onLoadInit(){
+        if (user == null) {
+            try {
+                user = JSON.parse(localStorage.getItem('user'));
+                document.getElementById('currentUser').innerHTML = user.uid;
+                fetchTasklist();
+            } catch {
+                
+            }
+        }
+    }
+</script>
+</head>
+<body onload="onLoadInit()">
+
+    <div id="cover">
+    </div>
+    <div class="container">
+        <!-- Side bar -->
+
+        <aside>
+            <!-- <a href="#homeSubmenu" >
+                <span class="material-icons">
+                    home
+                    </span>
+                Home
+                </a>
+            <a href="#">
+                <span class="material-icons">
+                    calendar_today
+                    </span>
+            FAQ
+            </a> -->
+            <div class="border-end bg-white" id="sidebar-wrapper">
+                <div class="list-group list-group-flush">
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="index.html">
+                        <span class="material-icons">home</span> Home</a>
+                        <i class="bi bi-calendar-event"></i><a class="list-group-item list-group-item-action list-group-item-light p-3 active" href="nhap.html"><span class="material-icons">
+                        today
+                        </span> To-do-list</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="userprofile.html"><span class="material-icons">
+                        account_circle
+                        </span>My profile</a> <i class="bi bi-calendar-event"></i>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="login.html"><i class="fa fa-sign-out"></i>
+                        Log-out</a>
+                
+                </div>
+            </div>
+            <br>
+         
+            <h5>Weekly progress</h5>
+            <div class="progress" style ="height: 30px; margin-right: 20px;" >
+                <div class="progress-bar bg-secondary progress-bar-striped" style="width:60%"></div>
+              </div>
+              <br><br>
+            <img id="img" src="https://i.pinimg.com/564x/d5/c8/96/d5c896bb683459dba6053c77e4782fb6.jpg" width="fix">
+            <br><br>
+            <p class ="play">Work hard, Play hard</p></aside>
+        <!-- Main -->
+        <article>
+<div class="container-lg">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-8"><h2>To-do <b>List</b></h2></div>
+                    <div class="col-sm-4">
+                        <button id ="add_new" type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
+                        <a href="https://www.facebook.com/sharer/sharer.php?s=100&p[url]=nhap.html" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250');
+                         return false"><button type="button" class="btn btn-info share">
+                            <i class="fa fa-share-alt"></i> Share</button></a>
+                    </div>
+                </div>
+            </div>
+            <div>logged in as:<b id='currentUser'> </b></div>
+        <br />
+        Create new tasklist: <input type='text' id='listname' />
+        <input type="button" onclick="createTaskList()" value="create" />
+        Update tasklist: <input type='text' id='updateListname' />
+        <input type="button" onclick="updateTaskList()" value="update" />
+        <input type="button" onclick="deleteTaskList()" value="delete" />
+        <h1>Task Lists:</h1>
+        <input type="button" onclick="fetchTasklist()" value="fetch" />
+        Select tasklist:
+        <form name='tasklistForm' id='tasklistForm'>
+        </form>
+        <div>
+            create task inside selected tasklist:
+            <input type='text' id='taskname' />
+            <input type="button" onclick="createTask()" value="create" />
+            update task inside selected tasklist:
+            <input type='text' id='updateTaskname' />
+            <input type="button" onclick="updateTask()" value="update" />
+            <input type="button" onclick="deleteTask()" value="delete" />
+        </div>
+        List all tasks inside selected tasklist:
+        <div id="tasks">
+
+        </div>
+        <!-- <form id="tasks">
+
+        </form>
+        -->
+
+
+            <!-- <table class="table table-bordered">
+                <colgroup>
+                    <col width="80" span="1">
+                    <col width="250" span="1">                                      
+                    <col width="auto" span="1">
+                  </colgroup>
+                <thead>
+                    <tr>
+                        <th>Done</th>
+                        <th>Task</th>                    
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td><form id="tasks"></form></td>
+                       
+                        <td>
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                             <input type="button" onclick="deleteTask()" value="delete" />
+                        </td>
+                    </tr> -->
+
+
+                    <!-- <tr>
+                            <td><input type="checkbox"></td>
+                            <td>John Doe</td>
+                            <td><input type="date" value="2021-11-12"></td>
+                            <td><input type="checkbox"></td>
+                            <td>(171) 555-2222</td>
+                            <td>
+                                <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                                <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>John Doe</td>
+                        <td><input type="date" value="2021-11-12"></td>
+                        <td><input type="checkbox"></td>
+                        <td>(171) 555-2222</td>
+                        <td>
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>   -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>     
+        </article>
+</body>
+<script src="js/jquery.min.js"></script>
+  <script src="js/popper.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/task.js"></script>
+  <script src="js/index.js"></script>
+</html>

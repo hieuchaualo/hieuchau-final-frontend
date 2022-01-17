@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylecalendar.css">
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kumar+One+Outline&family=Quantico:ital,wght@1,700&display=swap" rel="stylesheet">
+
+
+<head>
+    <meta charset="utf-8">
+    <title>Notion</title>
+    <style>
+        
+
+       
+
+    </style>
+</head>
+
+<body onload="onLoadInit()">
+    
+    <div id="cover">
+      
+
+    </div>
+    <div class="container">
+        
+        <!-- Side bar -->
+
+        <aside> <!-- <a href="#homeSubmenu" >
+                <span class="material-icons">
+                    home
+                    </span>
+                Home
+                </a>
+            <a href="#">
+                <span class="material-icons">
+                    calendar_today
+                    </span>
+            FAQ
+            </a> -->
+            <div class="border-end bg-white" id="sidebar-wrapper">
+                <div class="list-group list-group-flush">
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3 active" href="index.html">
+                        <span class="material-icons">home</span> Home</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="nhap2.html"><span class="material-icons">
+                        today
+                        </span> To-do-list</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="userprofile.html"><span class="material-icons">
+                        account_circle
+                        </span>My profile</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="login.html"><i class="fa fa-sign-out"></i>
+                        Log-out</a>
+                
+                </div>
+            </div>
+            <br>
+         
+            <img id="img" src="https://i.pinimg.com/564x/30/d0/4b/30d04b1515af2c23b10dbf61a7d78dde.jpg" width="fix">
+            <br><br>
+            <p class ="play">Work hard, Play hard</p></aside>
+        <!-- Main -->
+
+
+       
+        <article>
+            <div>Logged in as:<b id='currentUser'> </b></div>
+            <hr>
+            <div class="row">
+                <div class="col-lg-6 about-img">
+                  <img src="image/1.png" width="300" alt="">
+                </div>
+      
+                <div class="col-lg-6 content">
+                  <h2 style="font-weight: bold">Organize it all with<br>
+                       To-do-list</h2>
+                 
+                  <p style="color: dimgray; font-size: medium;">We added a way to sort workspace members by their name or access level. Handy for larger teams!</p>
+                  
+                </div>
+              </div>
+
+              <hr>
+
+ 
+              <div class="row">
+                <div class="col-lg-6 content">
+                  <h2 style="font-weight: bold">Smart work arrangement</h2>
+                  <p style="color: dimgray; font-size: medium;">We added a way to sort workspace members by their name or access level. Handy for larger teams!</p>
+      
+                 
+                </div>
+                <div class="col-lg-6 about-img">
+                    <img src="image/Group 1.png" width="300" alt="">
+                  </div>
+              </div>
+
+            
+              <div>
+                <a href="store.html" type="button" class="btn btn-info" style=" 
+                justify-content: center;
+              ">Details</a>
+              </div>
+        </article> 
+       
+        <!-- <article>
+            <div class="today">
+                <div>
+                  
+                    <p class ="task" style="background-color: #E2C275; color: white;">Do today</p>
+                 
+                              
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-white">
+                                <div class="card-body">
+                                    <ul class="nav nav-pills todo-nav">
+                                        <li role="presentation" class="nav-item all-task active"><a href="#" class="nav-link">All</a></li>
+                                        <li role="presentation" class="nav-item active-task"><a href="#" class="nav-link">Active</a></li>
+                                        <li role="presentation" class="nav-item completed-task"><a href="#" class="nav-link">Completed</a></li>
+                                    </ul>
+                                    <div class="todo-list">
+                                        <div class="todo-item">
+                                            <div class="checker"><span class=""><input type="checkbox"></span></div>
+                                            <span>Create theme</span>
+                                            <a href="javascript:void(0);" class="float-right remove-todo-item"><i class="icon-close"></i></a>
+                                        </div>
+                                        <div class="todo-item">
+                                            <div class="checker"><span class=""><input type="checkbox"></span></div>
+                                            <span>Work on wordpress</span>
+                                            <a href="javascript:void(0);" class="float-right remove-todo-item"><i class="icon-close"></i></a>
+                                        </div>
+                                        
+                                        <div class="todo-item">
+                                            <div class="checker"><span class=""><input type="checkbox"></span></div>
+                                            <span>Organize office main department</span>
+                                            <a href="javascript:void(0);" class="float-right remove-todo-item"><i class="icon-close"></i></a>
+                                        </div>
+                                        <div class="todo-item">
+                                            <div class="checker"><span><input type="checkbox"></span></div>
+                                            <span>Error solve in HTML template</span>
+                                            <a href="javascript:void(0);" class="float-right remove-todo-item"><i class="icon-close"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <section class="ftco-section">
+                        <div class="container"> -->
+                            <!-- <div class="row justify-content-center">
+                                <div class="col-md-6 text-center mb-5">
+                                    <h2 class="heading-section">Calendar #01</h2>
+                                </div>
+                            </div> -->
+                            <!-- <button type="button" class="btn btn-primary" style="border-radius: 50%;
+  font-size:25px;
+  color: white;
+background-color: #E2C275; width: 50px; height: 50px;float: right: ;;" data-toggle="modal" data-target="#myModal">
+    +
+  </button> <div class="table-title"> -->
+    <!-- <div class="row">
+        <div class="col-sm-8"><h2></h2></div>
+        <div class="col-sm-4">
+            <button onclick="document.location='nhap.html'" id ="add_new" type="button" class="btn btn-info share"><i class="fa fa-plus"></i> Add New</button>
+        </div>
+    </div>
+</div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="calendar calendar-first" id="calendar_first">
+                                    <div class="calendar_header">
+                                        <button class="switch-month switch-left"> <i class="fa fa-chevron-left"></i></button>
+                                         <h2></h2>
+                                        <button class="switch-month switch-right"> <i class="fa fa-chevron-right"></i></button>
+                                    </div>
+                                    <div class="calendar_weekdays"></div>
+                                    <div class="calendar_content"></div>
+                                    </div>
+                                </div>
+                            </div> -->
+                        <!-- </div> -->
+                    <!-- </section>
+            </div>
+            </div>
+                
+                <p class ="task" style="background-color: #E2C275; color: white;">Most Important Task</p>
+                <div class="week">
+                    
+                    <div>
+                        <h5 style="text-decoration: underline; color: #E2C275;">Monday</h5>
+                        <input type="checkbox" >
+                        <label for="vehicle1"> Read book</label><br>
+                        <input type="checkbox" >
+                        <label for="vehicle2"> Do exercise</label><br>
+                    </div>
+                    <div>
+                        <h5 style="text-decoration: underline; color: #E2C275;">Tuesday</h5>
+                        <input type="checkbox" >
+                        <label for="vehicle1"> Read book</label><br>
+                        <input type="checkbox" >
+                        <label for="vehicle2"> Dating with P ^^</label><br>
+                    </div>
+                    <div><h5 style="text-decoration: underline; color: #E2C275;">Wednesday</h5>
+                        <input type="checkbox" >
+                        <label for="vehicle1"> Study vocabulary</label><br>
+                        <input type="checkbox" >
+                        <label for="vehicle2"> Search Activity</label><br>
+                    </div>
+                    
+                    <div><h5 style="text-decoration: underline; color: #E2C275;">Thursday</h5>
+                        <input type="checkbox" >
+                        <label for="vehicle1"> Running</label><br>
+                        <input type="checkbox" >
+                        <label for="vehicle2"> Study coding</label><br>
+                    </div>
+                    <div><h5 style="text-decoration: underline; color: #E2C275;">Friday</h5>
+                        <input type="checkbox" >
+                        <label for="vehicle1"> Read book</label><br>
+                        <input type="checkbox" >
+                        <label for="vehicle2"> Write essay</label><br>
+                    </div>
+                    <div>
+                        <h5 style="text-decoration: underline; color: #E2C275;">Saturday</h5>
+                        <input type="checkbox" >
+                        <label for="vehicle1"> HCI class</label><br>
+                        <input type="checkbox" >
+                        <label for="vehicle2"> Design Mockup</label><br>
+                    </div>
+                    <div>
+                        <h5 style="text-decoration: underline; color: #E2C275;">Sunday</h5>
+                            <input type="checkbox" >
+                            <label for="vehicle1"> Read book</label><br>
+                            <input type="checkbox" >
+                            <label for="vehicle2"> Running</label><br>
+                    </div>
+                    <img src="https://i.pinimg.com/564x/5b/87/8b/5b878b1314c74dd56b51f94145df0121.jpg" alt="placeholder">
+                    
+                </div>
+        </article> 
+
+        
+        
+    </div> -->
+
+    <!-- <div class="content">
+    
+        <div class="container text-left">
+          <div class="row justify-content-center">
+            <div class="col-md-10 text-center">
+              <h2 class="mb-5 text-center">Calendar #6 (Inline)</h2>
+              <form action="#" class="row1">
+                <div class="col-md-12">
+                  <div id="inline_cal"></div>
+                </div>
+              </form>
+            </div>
+          </div>
+              
+        </div>
+      </div> -->
+
+</body>
+
+<script src="js/jquery.min.js"></script>
+  <script src="js/popper.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/task.js"></script>
+  <script src="js/index1.js"></script>
+
+
+
+
+</html>
